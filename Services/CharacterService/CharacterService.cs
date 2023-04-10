@@ -11,27 +11,28 @@ namespace dotnet_game.Services.CharacterService
             new Character(),
             new Character(){Id = 1, Name = "Sam"}
         };
-        public async Task<List<Character>> AddCharacter(Character NewCharacter)
+        public async Task<ServiceResponse<List<Character>>> AddCharacter(Character NewCharacter)
         {
+            var serviceReseponse = new ServiceResponse<List<Character>>();
+            serviceReseponse.Data = characters;;
             characters.Add(NewCharacter);
-            return characters;
+            return serviceReseponse;
         }
 
-        public async Task<List<Character>> GetAllCharacters()
+        public async Task<ServiceResponse<List<Character>>> GetAllCharacters()
         {
-            return characters;
+            var serviceReseponse = new ServiceResponse<List<Character>>();
+            serviceReseponse.Data = characters;
+            return serviceReseponse;
         }
 
-        public async Task<Character> GetCharacterById(int id)
+        public async Task<ServiceResponse<Character>> GetCharacterById(int id)
         {
-
+            var serviceReseponse = new ServiceResponse<Character>();
             var character = characters.FirstOrDefault(c => c.Id == id);
+            serviceReseponse.Data = character;
 
-            if(character is not null){
-                return character;
-            }
-
-            throw new Exception("Character Not Found!");
+            return serviceReseponse;
         }
     }
 }
