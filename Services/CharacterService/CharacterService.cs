@@ -11,18 +11,18 @@ namespace dotnet_game.Services.CharacterService
             new Character(),
             new Character(){Id = 1, Name = "Sam"}
         };
-        public List<Character> AddCharacter(Character NewCharacter)
+        public async Task<List<Character>> AddCharacter(Character NewCharacter)
         {
             characters.Add(NewCharacter);
             return characters;
         }
 
-        public List<Character> GetAllCharacters()
+        public async Task<List<Character>> GetAllCharacters()
         {
             return characters;
         }
 
-        public Character GetCharacterById(int id)
+        public async Task<Character> GetCharacterById(int id)
         {
 
             var character = characters.FirstOrDefault(c => c.Id == id);
