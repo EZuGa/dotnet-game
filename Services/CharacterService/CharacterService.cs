@@ -71,5 +71,28 @@ namespace dotnet_game.Services.CharacterService
 
             return serviceReseponse;
         }
+
+        public async Task<ServiceResponse<List<GetCharacterDto>>> DeleteCharacter(int id)
+        {
+            var serviceReseponse = new ServiceResponse<List<GetCharacterDto>>();
+            try{
+                var character = characters.FirstOrDefault(v => v.Id == id);
+
+                if(character is null){
+                    throw new Exception("Character with id " + id + " Cant be found");
+                }
+
+                characters.Remove(character);
+                
+
+                serviceReseponse.Data = characters.Select(c=> _mapper.Map<GetCharacterDto>(c)).ToList();
+            }catch(Exception err){
+                serviceReseponse.Success = false;
+                serviceReseponse.Message = err.Message;
+            }
+
+
+            return serviceReseponse;        }
+
     }
 }
